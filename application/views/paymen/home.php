@@ -79,18 +79,33 @@
     <!-- summary -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h4 class="small font-weight-bold">Pembayaran Sukses <span class="float-right"><?= $jumlahsukses; ?> (<?= ROUND($jumlahsukses / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-success" role="progressbar" style="width: <?= ROUND($jumlahsukses / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <h4 class="small font-weight-bold">Pembayaran Pending <span class="float-right"><?= $jumlahpending; ?> (<?= ROUND($jumlahpending / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: <?= ROUND($jumlahpending / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <h4 class="small font-weight-bold">Pembayaran gagal <span class="float-right"><?= $jumlahseluruh - $jumlahsukses - $jumlahpending; ?> (<?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+            <?php if ($jumlahseluruh > 0) : ?>
+                <h4 class="small font-weight-bold">Pembayaran Sukses <span class="float-right"><?= $jumlahsukses; ?> (<?= ROUND($jumlahsukses / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: <?= ROUND($jumlahsukses / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Pembayaran Pending <span class="float-right"><?= $jumlahpending; ?> (<?= ROUND($jumlahpending / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?= ROUND($jumlahpending / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Pembayaran gagal <span class="float-right"><?= $jumlahseluruh - $jumlahsukses - $jumlahpending; ?> (<?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            <?php else : ?>
+                <h4 class="small font-weight-bold">Pembayaran Sukses <span class="float-right">0 (0%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Pembayaran Pending <span class="float-right">0 (0%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Pembayaran gagal <span class="float-right">0 (0%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            <?php endif;   ?>
         </div>
     </div>
 
