@@ -76,7 +76,6 @@
             </div>
         </div>
     </div>
-
     <!-- summary -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -88,9 +87,9 @@
             <div class="progress mb-4">
                 <div class="progress-bar bg-warning" role="progressbar" style="width: <?= ROUND($jumlahpending / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <h4 class="small font-weight-bold">Pembayaran gagal <span class="float-right"><?= $jumlahseluruh - $jumlahsukses; ?> (<?= ROUND(($jumlahseluruh - $jumlahsukses) / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
+            <h4 class="small font-weight-bold">Pembayaran gagal <span class="float-right"><?= $jumlahseluruh - $jumlahsukses - $jumlahpending; ?> (<?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>)</span></h4>
             <div class="progress mb-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ROUND(($jumlahseluruh - $jumlahsukses) / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ROUND(($jumlahseluruh - $jumlahsukses - $jumlahpending) / $jumlahseluruh * 100, 2) . "%"; ?>" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
@@ -98,7 +97,7 @@
 
     <ul class="nav nav-pills nav-justified tabs mb-3" id="assetstabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#cards" type="button" role="tab" aria-controls="cards" aria-selected="true">HISTORY</button>
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#cards" type="button" role="tab" aria-controls="cards" aria-selected="true">PENDING</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="currency-tab" data-bs-toggle="tab" data-bs-target="#currency" type="button" role="tab" aria-controls="currency" aria-selected="false">KWITANSI</button>
@@ -107,61 +106,90 @@
     <div class="tab-content" id="assetstabsContent">
         <div class="tab-pane fade show active" id="cards" role="tabpanel">
             <div class="row mb-3">
-                <!-- Project Card Example -->
-                <div class="col">
-                    <h6 class="title">History</h6>
-                </div>
-                <div class="col-auto">
-                    <a href="paymen/bayar" class="small">+Pembayaran</a>
-                </div>
-            </div>
-            <?php $i = 1; ?>
-            <?php foreach ($bayar as $tg) : ?>
-                <div class="row mb-4">
-                    <div class="col-12 px-0">
-                        <ul class="list-group list-group-flush bg-none">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-50 shadow rounded-10 bg-warning text-white">
-                                            <span class="vm d-inline-block"><?= $i; ?></span>
+                <?php $i = 1; ?>
+                <?php foreach ($bayar as $tg) : ?>
+                    <?php if ($tg['bill_payment_status'] == "PENDING") : ?>
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 shadow rounded-10 bg-warning text-white">
+                                                <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 btn-warning text-light shadow-sm">
+                                                    <i class="bi bi-cash-coin"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col align-self-center ps-0">
+                                            <p class="small mb-1"><span class="text-muted">Pembayaran Tgl: <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="tag bg-danger border-danger text-white py-1 px-2">
+                                                <?= $tg['bill_payment_status'] ?>
+                                            </div><br>
+                                            <center>
+                                                <div class="tag bg border-primary text-white py-1 px-2">
+                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="bi bi-cash-coin"> Bayar</i>
+                                                    </a>
+                                                </div>
+                                            </center>
                                         </div>
                                     </div>
-                                    <div class="col align-self-center ps-0">
-                                        <p class="text-color-theme mb-0">Waktu dibuat</p>
-                                        <p class="text-muted size-12"><?= $tg['waktu_dibuat']; ?></p>
-                                    </div>
-                                    <div class="col align-self-center text-end">
-                                        <p class="mb-0 fw-bold"><?= rupiah($tg['amount'] - 3500); ?></p>
-                                        <p class="text-muted size-12 text-success">
-                                            <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
-                                                <font color='green'><b>SUKSES</b></font>
-                                            <?php elseif ($tg['bill_payment_status'] == "CANCELLED") : ?>
-                                                <font color='red'><b>DIBATALKAN</b></font>
-                                            <?php elseif (strtotime($tg['expired_date']) < strtotime("now")) : ?>
-                                                <font color='black'><b>KADALUARSA</b></font>
-                                            <?php elseif ($tg['bill_payment_status'] == "PENDING") : ?>
-                                                <font color='red'><b>PENDING</b></font>
-                                            <?php endif; ?>
-                                        </p>
-                                    </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <?php $i++; ?>
-            <?php endforeach; ?>
+                            </div>
+                            <?php $i++; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                        </div>
+
+
+            </div>
         </div>
         <div class="tab-pane fade" id="currency" role="tabpanel" aria-labelledby="currency-tab">
             <div class="row">
-
-
+                <?php $i = 1; ?>
+                <?php foreach ($bayar as $tg) : ?>
+                    <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 shadow rounded-10 bg-success text-white">
+                                                <span class="vm d-inline-block"><i class="fas fa-clipboard-check"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col align-self-center ps-0">
+                                            <p class="small mb-1"><span class="text-muted">Pembayaran Tgl: <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="tag bg-success border-success text-white py-1 px-2">
+                                                <?= $tg['bill_payment_status'] ?>
+                                            </div><br>
+                                            <center>
+                                                <div class="tag bg border-success text-white py-1 px-2">
+                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print Kwitansi</i>
+                                                    </a>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php $i++; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                        </div>
             </div>
         </div>
 
     </div>
-    <!-- Transactions -->
+</div>
+
+</div>
+<!-- Transactions -->
 
 </div>
 </div>

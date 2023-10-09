@@ -21,7 +21,7 @@ class Paymen extends CI_Controller
         $data['jumlahseluruh'] = $this->jumlah->hitungJumlahSeluruh();
 
         $username = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
+        $this->db->order_by('waktu_dibuat', 'DESC');
         $data['bayar'] = $this->db->get_where('data_bayar', ['nis' => $this->session->userdata('email')])->result_array();
         // if ($username['email2'] == "") {
         //     redirect('paymen/email');
