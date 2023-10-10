@@ -55,6 +55,7 @@
                                                                     }; ?>) </p>
             </div>
         </div>
+
         <br>
         <div class="main-container container">
             <div class="card shadow-sm mb-4">
@@ -76,6 +77,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Dark mode switch -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="darkmodeswitch">
+                        <label class="form-check-label text-muted px-2 " for="darkmodeswitch">Activate Dark
+                            Mode</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- summary -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -136,7 +153,7 @@
                                             </div>
                                         </div>
                                         <div class="col align-self-center ps-0">
-                                            <p class="small mb-1"><span class="text-muted">Pembayaran Tgl: <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                            <p class="small mb-1"><span class="text-muted">Pembayaran<br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
                                             <p><?= rupiah($tg['amount'] - 3500); ?> </p>
                                         </div>
                                         <div class="col-auto">
@@ -176,13 +193,14 @@
                                             </div>
                                         </div>
                                         <div class="col align-self-center ps-0">
-                                            <p class="small mb-1"><span class="text-muted">Pembayaran Tgl: <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                            <p class="small mb-1"><span class="text-muted">Pembayaran <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
                                             <p><?= rupiah($tg['amount'] - 3500); ?> </p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="tag bg-success border-success text-white py-1 px-2">
                                                 <?= $tg['bill_payment_status'] ?>
-                                            </div><br>
+                                            </div>
+                                            <br>
                                             <center>
                                                 <div class="tag bg border-success text-white py-1 px-2">
                                                     <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print Kwitansi</i>

@@ -2,63 +2,31 @@
 <footer class="footer">
     <div class="container">
         <ul class="nav nav-pills nav-justified">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <span>
-                        <i class="nav-icon bi bi-house"></i>
-                        <span class="nav-text">Home</span>
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(''); ?>paymen/history">
-                    <span>
-                        <i class="nav-icon bi bi-clock-history"></i>
-                        <span class="nav-text">History</span>
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item centerbutton">
-                <div class="nav-link">
-                    <span class="theme-radial-gradient">
-                        <i class="close bi bi-x"></i>
-                        <img src="<?= base_url(''); ?>assets/img/centerbutton.svg" class="nav-icon" alt="" />
-                    </span>
-                    <div class="nav-menu-popover justify-content-between">
-                        <a href="<?= base_url(''); ?>paymen" type="button" class="btn btn-lg btn-icon-text">
-                            <i class="bi bi-house size-32"></i><span>Home</span>
-                        </a>
+            <?php
+            $menuId = 4;
+            $querySubMenu = "SELECT *
+               FROM `user_sub_menu` JOIN `user_menu` 
+                 ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
+              WHERE `user_sub_menu`.`menu_id` = $menuId
+                AND `user_sub_menu`.`is_active` = 1
+        ";
+            $subMenu = $this->db->query($querySubMenu)->result_array();
+            ?>
+            <?php foreach ($subMenu as $sm) : ?>
+                <li class="nav-item">
+                    <?php if ($title == $sm['title']) : ?>
+                        <a class="nav-link active" href="<?= base_url($sm['url']); ?>">
+                        <?php else : ?>
+                            <a class="nav-link" href="<?= base_url($sm['url']); ?>">
+                            <?php endif; ?>
+                            <span>
+                                <i class="<?= $sm['icon']; ?>"></i>
+                                <span class="nav-text"><?= $sm['title']; ?></span>
+                            </span>
+                            </a>
+                </li>
+            <?php endforeach; ?>
 
-                        <a href="<?= base_url(''); ?>paymen/history" type="button" class="btn btn-lg btn-icon-text">
-                            <i class="bi bi-clock-history size-32"></i><span>History</span>
-                        </a>
-
-                        <a href="<?= base_url(''); ?>paymen/profile" type="button" class="btn btn-lg btn-icon-text">
-                            <i class="bi bi-person-fill size-32"></i><span>Profile</span>
-                        </a>
-
-                        <a href="<?= base_url(''); ?>paymen/setting" type="button" class="btn btn-lg btn-icon-text">
-                            <i class="bi bi-gear size-32"></i><span>Setting</span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(''); ?>paymen/profile">
-                    <span>
-                        <i class="nav-icon bi bi-person-fill"></i>
-                        <span class="nav-text">Profile</span>
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(''); ?>paymen/setting">
-                    <span>
-                        <i class="nav-icon bi bi-gear"></i>
-                        <span class="nav-text">Setting</span>
-                    </span>
-                </a>
-            </li>
         </ul>
     </div>
 </footer>

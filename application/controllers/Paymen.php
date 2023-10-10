@@ -11,9 +11,10 @@ class Paymen extends CI_Controller
 
     public function home()
     {
-        $data['title'] = 'home';
+        $data['title'] = 'Home';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['tunggakan'] = $this->db->get_where('tunggakan', ['nis' => $this->session->userdata('email')])->row_array();
+
 
         $this->load->model('Paymen_model', 'jumlah');
         $data['jumlahpending'] = $this->jumlah->hitungJumlahPending();
@@ -34,5 +35,23 @@ class Paymen extends CI_Controller
 
 
         // }
+    }
+
+    public function history()
+    {
+        $data['title'] = 'History';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->db->order_by('waktu_dibuat', 'DESC');
+        $data['transaksi'] = $this->db->get_where('data_bayar', ['nis' => $this->session->userdata('email')])->result_array();
+
+
+        $this->db->order_by('waktu_dibuat', 'DESC');
+        $data['bayar'] = $this->db->get_where('data_bayar', ['nis' => $this->session->userdata('email')])->result_array();
+
+        $this->load->view('templates/paymen_header', $data);
+        $this->load->view('templates/paymen_sidebar', $data);
+        $this->load->view('paymen/history', $data);
+        $this->load->view('templates/paymen_footer', $data);
     }
 }
