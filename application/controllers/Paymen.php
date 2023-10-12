@@ -54,4 +54,26 @@ class Paymen extends CI_Controller
         $this->load->view('paymen/history', $data);
         $this->load->view('templates/paymen_footer', $data);
     }
+
+    public function profile()
+    {
+        $data['title'] = 'Profile';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/paymen_header', $data);
+        $this->load->view('templates/paymen_sidebar', $data);
+        $this->load->view('paymen/profile', $data);
+        $this->load->view('templates/paymen_footer', $data);
+    }
+
+    public function setting()
+    {
+        $data['title'] = 'setting';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/paymen_header', $data);
+        $this->load->view('templates/paymen_sidebar', $data);
+        $this->load->view('paymen/setting', $data);
+        $this->load->view('templates/paymen_footer', $data);
+    }
 }

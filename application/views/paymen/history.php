@@ -24,122 +24,155 @@
                     <button class="nav-link" id="currency-tab" data-bs-toggle="tab" data-bs-target="#currency" type="button" role="tab" aria-controls="currency" aria-selected="false">SUKSES</button>
                 </li>
             </ul>
+            <!-- TAB -->
             <div class="tab-content" id="assetstabsContent">
                 <div class="tab-pane fade show active" id="cards" role="tabpanel">
+                    <!-- Transactions -->
                     <div class="row mb-3">
-                        <?php $i = 1; ?>
-                        <?php foreach ($bayar as $tg) : ?>
-                            <div class="col">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
-                                                    <div class="avatar avatar-50 shadow rounded-10 bg-success text-white">
-                                                        <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                        </a>
-                                                    </div>
-                                                <?php elseif ($tg['bill_payment_status'] == "PENDING") : ?>
-                                                    <div class="avatar avatar-50 shadow rounded-10 bg-warning text-white">
-                                                        <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
-                                                            <i class="bi bi-cash-coin"></i>
-                                                        </a>
-                                                    </div>
-                                                <?php else : ?>
-                                                    <div class="avatar avatar-50 shadow rounded-10 bg-danger text-white">
-                                                        <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
-                                                            <i class="fas fa-window-close"></i>
-                                                        </a>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="col align-self-center ps-0">
-                                                <p class="small mb-1"><span class="text-muted">Pembayaran<br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
-                                                <p><?= rupiah($tg['amount'] - 3500); ?> </p>
-                                            </div>
-                                            <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
-                                                <div class="col-auto">
-                                                    <div class="tag bg-success border-success text-white py-1 px-2">
-                                                        <?= $tg['bill_payment_status'] ?>
-                                                    </div><br>
-                                                    <center>
-                                                        <div class="tag bg border-success text-white py-1 px-2">
-                                                            <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print</i>
-                                                            </a>
+                        <div class="col-12 px-0">
+                            <ul class="list-group list-group-flush bg-none">
+                                <?php foreach ($bayar as $tg) : ?>
+                                    <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
+                                        <li class="list-group-item">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="avatar avatar-50 shadow rounded-10 bg-success text-white">
+                                                                <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
+                                                                    <i class="fas fa-clipboard-check"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                    </center>
-                                                </div>
-                                            <?php elseif ($tg['bill_payment_status'] == "PENDING") : ?>
-                                                <div class="col-auto">
-                                                    <div class="tag bg-danger border-danger text-white py-1 px-2">
-                                                        <?= $tg['bill_payment_status'] ?>
-                                                    </div><br>
-                                                    <center>
-                                                        <div class="tag bg border-primary text-white py-1 px-2">
-                                                            <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="bi bi-cash-coin"> Bayar</i>
-                                                            </a>
+                                                        <div class="col align-self-center ps-0">
+                                                            <p class="small mb-1"><span class="text-muted"><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
                                                         </div>
-                                                    </center>
+                                                        <div class="col-auto">
+                                                            <div class="tag bg-success border-success text-white py-1 px-2">
+                                                                <?= $tg['bill_payment_status'] ?>
+                                                            </div><br>
+                                                            <center>
+                                                                <div class="tag bg border-success text-white py-1 px-2">
+                                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print</i>
+                                                                    </a>
+                                                                </div>
+                                                            </center>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            <?php else : ?>
-                                                <div class="col-auto">
-                                                    <div class="tag bg-secondary border-secondary text-white py-1 px-2">
-                                                        <?= $tg['bill_payment_status'] ?>
-                                                    </div><br>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="tab-pane fade" id="currency" role="tabpanel" aria-labelledby="currency-tab">
-            <div class="row">
-                <?php $i = 1; ?>
-                <?php foreach ($bayar as $tg) : ?>
-                    <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <div class="avatar avatar-50 shadow rounded-10 bg-success text-white">
-                                                <span class="vm d-inline-block"><i class="fas fa-clipboard-check"></i></span>
                                             </div>
-                                        </div>
-                                        <div class="col align-self-center ps-0">
-                                            <p class="small mb-1"><span class="text-muted">Pembayaran <br><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
-                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="tag bg-success border-success text-white py-1 px-2">
-                                                <?= $tg['bill_payment_status'] ?>
-                                            </div>
-                                            <br>
-                                            <center>
-                                                <div class="tag bg border-success text-white py-1 px-2">
-                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print Kwitansi</i>
-                                                    </a>
+                                        </li>
+                                    <?php elseif ($tg['bill_payment_status'] == "PENDING") : ?>
+                                        <li class="list-group-item">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="avatar avatar-50 shadow rounded-10 bg-warning text-white">
+                                                                <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
+                                                                    <i class="bi bi-cash-coin"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center ps-0">
+                                                            <p class="small mb-1"><span class="text-muted"><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="tag bg-danger border-danger text-white py-1 px-2">
+                                                                <?= $tg['bill_payment_status'] ?>
+                                                            </div><br>
+                                                            <center>
+                                                                <div class="tag bg border-primary text-white py-1 px-2">
+                                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="bi bi-cash-coin"> Bayar</i>
+                                                                    </a>
+                                                                </div>
+                                                            </center>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </center>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php $i++; ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                                            </div>
+                                        </li>
+                                    <?php else : ?>
+                                        <li class="list-group-item">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="avatar avatar-50 shadow rounded-10 bg-danger text-white">
+                                                                <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
+                                                                    <i class="fas fa-window-close"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center ps-0">
+                                                            <p class="small mb-1"><span class="text-muted"><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="tag bg-secondary border-secondary text-white py-1 px-2">
+                                                                <?= $tg['bill_payment_status'] ?>
+                                                            </div><br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
                         </div>
-            </div>
-        </div>
+                    </div>
+                    <!-- END Transactions -->
+                </div>
+                <div class="tab-pane fade" id="currency" role="tabpanel" aria-labelledby="currency-tab">
+                    <!-- Transactions -->
+                    <div class="row mb-3">
+                        <div class="col-12 px-0">
+                            <ul class="list-group list-group-flush bg-none">
+                                <?php foreach ($bayar as $tg) : ?>
+                                    <?php if ($tg['bill_payment_status'] == "SUCCESSFUL") : ?>
+                                        <li class="list-group-item">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="avatar avatar-50 shadow rounded-10 bg-success text-white">
+                                                                <a href="<?= $tg['payment_url']; ?>" class="btn btn-44 text-light shadow-sm">
+                                                                    <i class="fas fa-clipboard-check"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center ps-0">
+                                                            <p class="small mb-1"><span class="text-muted"><?= date('d M Y H:m', strtotime($tg['waktu_dibuat'])); ?></span></p>
+                                                            <p><?= rupiah($tg['amount'] - 3500); ?> </p>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="tag bg-success border-success text-white py-1 px-2">
+                                                                <?= $tg['bill_payment_status'] ?>
+                                                            </div><br>
+                                                            <center>
+                                                                <div class="tag bg border-success text-white py-1 px-2">
+                                                                    <a href="<?= base_url(); ?>paymen/kwitansi?id=<?= $tg['link_id']; ?>" <i class="fas fa-print"></i> Print</i>
+                                                                    </a>
+                                                                </div>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END Transactions -->
+                </div>
 
+            </div>
+            <!-- END TAB -->
         </div>
 
 
