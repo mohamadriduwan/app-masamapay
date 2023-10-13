@@ -117,3 +117,45 @@
     </div>
 
 </div>
+
+
+<div class="main-container container">
+    <!-- selected contacts -->
+    <div class="card shadow-sm mb-3">
+        <div class="col-auto">
+            <div class="main-container container">
+                <div class="row mb-3">
+                    <div class="col-12 px-0">
+                        <div class="main-container container">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col align-self-center ps-0">
+                                        <p class="small mb-1"><span class="text-muted">Email</span></p>
+                                        <p>riduwan.boban@gmail.com</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#">
+                                            <span class="badge bg-primary fw-light">Edit</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col align-self-center ps-0">
+                                        <p class="small mb-1"><span class="text-muted">No HP</span></p>
+                                        <p>08563637463</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

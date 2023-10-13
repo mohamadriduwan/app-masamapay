@@ -21,14 +21,6 @@
                     <p class="mb-0 text-color-theme"><?= $user['name']; ?></p>
                     <p class="text-muted size-12">Kelas <?= $user['kelas']; ?></p>
                 </div>
-                <!-- <div class="col-auto">
-                            <a href="addmoney.html" class="btn btn-44 btn-light shadow-sm">
-                                <i class="bi bi-plus-circle"></i>
-                            </a>
-                            <a href="withdraw.html" class="btn btn-44 btn-default shadow-sm ms-1">
-                                <i class="bi bi-arrow-down-circle"></i>
-                            </a>
-                        </div> -->
             </div>
         </div>
         <?php
@@ -40,19 +32,25 @@
         ?>
         <div class="card theme-bg text-white border-0 text-center">
             <div class="card-body">
-                <h1 class="display-1 my-2"><?php if (!isset($tunggakan['total'])) {
-                                                echo "LUNAS";
-                                            } else if ($tunggakan['total'] > 0) {
-                                                echo rupiah($tunggakan['total']);
-                                            } else {
-                                                echo "LUNAS";
-                                            }; ?></h1>
+                <h1 class="display-1 my-2">
+                    <?php if (isset($tunggakan['total']) && $tunggakan['total'] > 0) {
+                        echo rupiah($tunggakan['total']);
+                    } else {
+                        echo "LUNAS";
+                    }; ?>
+                </h1>
 
-                <p class="text-muted mb-2">Kekurangan <br>(update <?php if (isset($tunggakan['total'])) {
-                                                                        echo date('d M Y H:m', strtotime($tunggakan['date']));
-                                                                    } else {
-                                                                        echo date('Y-m-d H:m');
-                                                                    }; ?>) </p>
+                <p class="text-muted mb-2">Kekurangan
+                    <br>
+                    (update
+                    <?php
+                    if (isset($tunggakan['total'])) {
+                        echo date('d M Y H:m', strtotime($tunggakan['date']));
+                    } else {
+                        echo date('Y-m-d H:m');
+                    }; ?>
+                    )
+                </p>
             </div>
         </div>
 
@@ -60,11 +58,7 @@
         <div class="main-container container">
             <div class="card shadow-sm mb-4">
                 <center>
-                    <?php if (!isset($tunggakan['total'])) : ?>
-                        <button class="btn btn-default btn-lg shadow-sm w-100" disabled>
-                            Bayar
-                        </button>
-                    <?php elseif ($tunggakan['total'] > 0) : ?>
+                    <?php if (isset($tunggakan['total']) && $tunggakan['total'] > 0) : ?>
                         <button class="btn btn-default btn-lg shadow-sm w-100" onClick="document.location.href='<?= base_url(''); ?>paymen/bayar'">
                             Bayar
                         </button>
