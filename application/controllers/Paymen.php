@@ -76,4 +76,14 @@ class Paymen extends CI_Controller
         $this->load->view('paymen/setting', $data);
         $this->load->view('templates/paymen_footer', $data);
     }
+
+    public function bayar()
+    {
+        $data['title'] = 'Pembayaran';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/paymen_header_js', $data);
+        $this->load->view('paymen/bayar', $data);
+        $this->load->view('templates/paymen_footer_js', $data);
+    }
 }
