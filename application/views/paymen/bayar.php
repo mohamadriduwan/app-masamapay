@@ -18,7 +18,7 @@
             </div>
             <div class="col align-self-center ps-0">
                 <p class="mb-1 text-color-theme"><?= $user['name']; ?></p>
-                <p class="text-muted size-12">Kelas <?= $user['kelas']; ?></p>
+                <p class="text-muted size-12">Kekurangan : <?= rupiah($tunggakan['total']); ?></p>
             </div>
 
         </div>
@@ -47,7 +47,7 @@
                 <div class="row mb-4">
                     <div class="col-12 ">
                         <button type="submit" class="btn btn-default btn-lg shadow-sm w-100" onClick="this.disabled=true; this.value='Sending…'; this.form.submit();">
-                            Bayar
+                            Lanjut
                         </button>
                     </div>
                 </div>

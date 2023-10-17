@@ -81,9 +81,73 @@ class Paymen extends CI_Controller
     {
         $data['title'] = 'Pembayaran';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['tunggakan'] = $this->db->get_where('tunggakan', ['nis' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/paymen_header_js', $data);
         $this->load->view('paymen/bayar', $data);
+        $this->load->view('templates/paymen_footer_js', $data);
+    }
+
+    public function transfer()
+    {
+        if (isset($_POST['jumlahpembayaran']) && empty($_POST['jumlahpembayaran'])) {
+            redirect('paymen/bayar');
+        } else {
+            $data['title'] = 'Pilih VA Bank';
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+            $this->load->view('templates/paymen_header_js', $data);
+            $this->load->view('paymen/transfer', $data);
+            $this->load->view('templates/paymen_footer_js', $data);
+        };
+    }
+
+    public function cobacoba()
+    {
+        $data['title'] = 'Rekening VA';
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $title = $this->input->post('title', true);
+        $amount = $this->input->post('amount', true);
+        $expired_date = $this->input->post('expired_date', true);
+        $is_address_required = $this->input->post('is_address_required', true);
+        $sender_phone = $this->input->post('sender_phone', true);
+        $sender_name = $this->input->post('sender_name', true);
+        $sender_email = $this->input->post('sender_email', true);
+        $sender_bank = $this->input->post('sender_bank', true);
+
+        $payloads = [
+            "title" => $title,
+            "type" => "SINGLE",
+            "amount" => $amount,
+            "expired_date" => $expired_date,
+            "redirect_url" => "https://pay.masamabakung.sch.id/paymen/history",
+            "is_address_required" => $is_address_required,
+            "is_phone_number_required" => 1,
+            "step" => 3,
+            "sender_name" => $sender_name,
+            "sender_email" => $sender_email,
+            "sender_phone_number" => $sender_phone,
+            "sender_bank" => $sender_bank,
+            "sender_bank_type" => "virtual_account"
+        ];
+
+        $insert = [
+            'sender_bank' => $sender_bank,
+            'nis' => $user['email'],
+            'title' =>  $title,
+            'amount' =>  $amount,
+            'expired_date' => $expired_date,
+            'is_address_required' => $is_address_required,
+            'name' =>   $sender_name,
+            'email' => $sender_email,
+            'phone' => $sender_phone,
+            'status_pengiriman' => 0
+        ];
+
+        // print_r($payloads);
+        $this->load->view('templates/paymen_header_js', $data);
+        $this->load->view('paymen/rekening', $data);
         $this->load->view('templates/paymen_footer_js', $data);
     }
 }

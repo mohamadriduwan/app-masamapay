@@ -58,7 +58,7 @@
             <header class="header position-fixed">
                 <div class="row">
                     <div class="col-auto">
-                        <button class="btn btn-light btn-44 back-btn" onclick="window.location.replace('wallet.html');">
+                        <button class="btn btn-light btn-44" onclick="window.location.replace('<?= base_url('paymen/home') ?>');">
                             <i class="bi bi-arrow-left"></i>
                         </button>
                     </div>
@@ -73,3 +73,10 @@
                     </div>
                 </div>
             </header>
+            <?php
+            function rupiah($angka)
+            {
+                $hasil_rupiah = "Rp. " . number_format($angka, 0, ',', '.');
+                return $hasil_rupiah;
+            }
+            ?>
