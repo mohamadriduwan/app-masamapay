@@ -132,6 +132,8 @@ class Paymen extends CI_Controller
             "sender_bank_type" => "virtual_account"
         ];
 
+        $data['amount'] = $amount;
+        $data['bank'] = $sender_bank;
         $insert = [
             'sender_bank' => $sender_bank,
             'nis' => $user['email'],

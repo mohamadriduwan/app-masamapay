@@ -26,17 +26,18 @@
                         <hr>
                     </div>
                 </div>
-                <?php $nominal = "20000000"; ?>
+                <?php $nominal = $amount; ?>
                 <div class="main-container container">
                     <div class="card-body">
                         <div class="row">
                             <div class="col align-self-center ps-0">
-                                <p style="font-size: 12px; margin-left: 12px;">Nominal Transfer</p>
-                                <p style="font-size: 16px; margin-left: 12px; margin-top: 8px; margin-bottom: 8px;"><span><b id="myText2"><?= rupiah(str_replace(".", "", $nominal)); ?></b></span></p>
+                                <p style="font-size: 12px; margin-left: 12px;">Nominal Transfer<br>
+                                    <span><b style="font-size: 16px;" id="myText2"><?= rupiah(str_replace(".", "", $nominal)); ?></b></span>
+                                </p>
                             </div>
                             <div class="col-auto" style="margin-top: 16px; margin-bottom: 8px;">
                                 <center>
-                                    <div class="tag border-danger text-white py-1 px-2">
+                                    <div class="tag border-danger text-white py-1 px-2 mt-2">
                                         <a href="#" onclick="copyContent2()" <i style="color: red;">Salin</i>
                                         </a>
                                     </div>
@@ -53,11 +54,10 @@
                 </div>
                 <center>
                     <div class="col align-self-center ps-0 mb-4">
-                        <figure class="avatar avatar-100">
-                            <img src="https://s3.amazonaws.com/gt7sp-prod/decal/00/44/77/6052868698532774400_1.png" alt="">
-                        </figure>
-                        <p class="text size-14">Nomor BRI Virtual Account</p>
-                        <p style="font-size: 16px;"><span><b id="myText">3236260010127650</b></span></p>
+                        <img width="100px" class="mb-2" src="<?= base_url('assets/'); ?>/img/logo-banks/<?= $bank; ?>.png" alt="">
+                        <p class="text size-14">Nomor <?= strtoupper($bank); ?> Virtual Account<br>
+                            <span><b id="myText">3236260010127650</b></span>
+                        </p>
                         <div class="col-auto" style="margin-top: 8px; margin-bottom: 8px;">
                             <div class="tag bg border-danger text-white py-1 px-2">
                                 <a href="#" onclick="copyContent()" <i style="color: red;">Salin Nomor</i>
@@ -66,6 +66,7 @@
                         </div>
                     </div>
                 </center>
+                <hr>
                 <div class="row mb-4">
                     <center>
                         <div class="col-10 ">

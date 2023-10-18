@@ -78,13 +78,6 @@
                                     <option value="cimb">CIMB VA</option>
                                     <option value="bni">BNI VA</option>
                                     <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
-                                    <option value="danamon">Danamon VA</option>
                                 </select>
                                 <label class="text-color-theme">Pilih Virtual Account</label>
                             </div>
