@@ -152,4 +152,18 @@ class Paymen extends CI_Controller
         $this->load->view('paymen/rekening', $data);
         $this->load->view('templates/paymen_footer_js', $data);
     }
+
+    public function kwitansi()
+    {
+        if (isset($_POST['jumlahpembayaran']) && empty($_POST['jumlahpembayaran'])) {
+            redirect('paymen/bayar');
+        } else {
+            $data['title'] = 'Kwitansi';
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+            $this->load->view('templates/paymen_header_js', $data);
+            $this->load->view('paymen/kwitansi', $data);
+            $this->load->view('templates/paymen_footer_js', $data);
+        };
+    }
 }

@@ -8,8 +8,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col align-self-center ps-0">
-                                        <p style="font-size: 10px;"><span><b>Transfer Sebelum:</b>
-                                                <br><i>18 Oktober 2023, 16:25:59 WIB</i></br>
+                                        <p style="font-size: 10px;"><b>Transfer Sebelum:</b>
+                                            <br><i>18 Oktober 2023, 16:25:59 WIB</i></br>
                                         </p>
                                     </div>
                                     <div class="col-auto">
@@ -26,7 +26,12 @@
                         <hr>
                     </div>
                 </div>
-                <?php $nominal = $amount; ?>
+                <?php
+                $nominal = $amount;
+                if ($bank == "bsm") {
+                    $bank = "bsi";
+                };
+                ?>
                 <div class="main-container container">
                     <div class="card-body">
                         <div class="row">
