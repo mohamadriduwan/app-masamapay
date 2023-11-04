@@ -27,7 +27,13 @@
 </head>
 
 <body id="page-top">
-
+    <?php
+    function rupiah($angka)
+    {
+        $hasil_rupiah = "Rp. " . number_format($angka, 0, ',', '.');
+        return $hasil_rupiah;
+    }
+    ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 

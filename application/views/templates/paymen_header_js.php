@@ -49,34 +49,31 @@
         </div>
     </div>
     <!-- loader section ends -->
+    <main class="h-100">
 
-    <body class="body-scroll" data-page="sendmoney1">
-        <!-- Begin page -->
-        <main class="h-100">
-
-            <!-- Header -->
-            <header class="header position-fixed">
-                <div class="row">
-                    <div class="col-auto">
-                        <button class="btn btn-light btn-44" onclick="window.location.replace('<?= base_url('paymen/home') ?>');">
-                            <i class="bi bi-arrow-left"></i>
-                        </button>
-                    </div>
-                    <div class="col align-self-center text-center">
-                        <h5><?= $title; ?></h5>
-                    </div>
-                    <div class="col-auto">
-                        <a href="notifications.html" target="_self" class="btn btn-light btn-44">
-                            <i class="bi bi-bell"></i>
-                            <span class="count-indicator"></span>
-                        </a>
-                    </div>
+        <!-- Header -->
+        <header class="header position-fixed">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-light btn-44" onclick="window.location.replace('<?= base_url('paymen/home') ?>');">
+                        <i class="bi bi-arrow-left"></i>
+                    </button>
                 </div>
-            </header>
-            <?php
-            function rupiah($angka)
-            {
-                $hasil_rupiah = "Rp. " . number_format($angka, 0, ',', '.');
-                return $hasil_rupiah;
-            }
-            ?>
+                <div class="col align-self-center text-center">
+                    <h5><?= $title; ?></h5>
+                </div>
+                <div class="col-auto">
+                    <a href="notifications.html" target="_self" class="btn btn-light btn-44">
+                        <i class="bi bi-bell"></i>
+                        <span class="count-indicator"></span>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <?php
+        function rupiah($angka)
+        {
+            $hasil_rupiah = "Rp. " . number_format($angka, 0, ',', '.');
+            return $hasil_rupiah;
+        }
+        ?>

@@ -166,4 +166,27 @@ class Paymen extends CI_Controller
             $this->load->view('templates/paymen_footer_js', $data);
         };
     }
+
+    public function pdf()
+    {
+        $data['title'] = 'Kwitansi';
+        // Load library
+        $this->load->library('dompdf_gen');
+
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+
+        $this->load->view('paymen/kwitansi_pdf', $data);
+
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("Kwitansi.pdf", array('Attachment' => 0));
+    }
 }

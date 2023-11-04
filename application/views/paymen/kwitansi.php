@@ -150,9 +150,10 @@
     </div>
     <!-- main page content ends -->
     <center>
-        <div class="col-10 ">
-            <a class="btn btn-primary" href="<?= base_url(); ?>paymen">Kembali Ke Home</a>
-
+        <div class="main-container container">
+            <div class="alert alert-warning ">
+                <p style="font-size: 14px; text-align: center;">Silahkan Screenshoot Bukti pembayaran ini</p>
+            </div>
         </div>
     </center>
     </main>
