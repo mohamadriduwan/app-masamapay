@@ -28,7 +28,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <br>
-                                            <a href="#">
+                                            <a href="<?= base_url('paymen/'); ?>editprofile/nama">
                                                 <span class="badge bg-info fw-light">Edit</span>
                                             </a>
                                         </div>
@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <br>
-                                            <a href="#">
+                                            <a href="<?= base_url('paymen/'); ?>editprofile/nisn">
                                                 <span class="badge bg-info fw-light">Edit</span>
                                             </a>
                                         </div>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <br>
-                                            <a href="#">
+                                            <a href="<?= base_url('paymen/'); ?>editprofile/ttlahir">
                                                 <span class="badge bg-info fw-light">Edit</span>
                                             </a>
                                         </div>

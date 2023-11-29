@@ -28,7 +28,12 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Kelas</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="kelas" name="kelas" value="<?= $user['kelas']; ?>">
+                    <select class="form-control" id="kelas" name="kelas">
+                        <option selected><?= $user['kelas']; ?></option>
+                        <?php foreach ($kelas as $kel) : ?>
+                            <option><?= $kel['kelas']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>

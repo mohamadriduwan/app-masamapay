@@ -59,6 +59,9 @@ class Walikelas extends CI_Controller
         $data['title'] = 'Edit Kelas';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $query = $this->db->query("SELECT DISTINCT kelas FROM user ORDER BY kelas ASC");
+        $data['kelas'] = $query->result_array();
+
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
 
         if ($this->form_validation->run() == false) {

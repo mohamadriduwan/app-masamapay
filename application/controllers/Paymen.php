@@ -55,16 +55,6 @@ class Paymen extends CI_Controller
         $this->load->view('templates/paymen_footer', $data);
     }
 
-    public function profile()
-    {
-        $data['title'] = 'Profile';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $this->load->view('templates/paymen_header', $data);
-        $this->load->view('templates/paymen_sidebar', $data);
-        $this->load->view('paymen/profile', $data);
-        $this->load->view('templates/paymen_footer', $data);
-    }
 
     public function setting()
     {
@@ -188,5 +178,27 @@ class Paymen extends CI_Controller
         $this->dompdf->load_html($html);
         $this->dompdf->render();
         $this->dompdf->stream("Kwitansi.pdf", array('Attachment' => 0));
+    }
+
+    public function profile()
+    {
+        $data['title'] = 'Profile';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/paymen_header', $data);
+        $this->load->view('templates/paymen_sidebar', $data);
+        $this->load->view('paymen/profile', $data);
+        $this->load->view('templates/paymen_footer', $data);
+    }
+
+    public function editprofile($id)
+    {
+        $data['title'] = 'Edit ' . ucwords($id);
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['namasaya'] = $id;
+
+        $this->load->view('templates/paymen_header_profile', $data);
+        $this->load->view('paymen/editprofile/' . $id, $data);
+        $this->load->view('templates/paymen_footer_js', $data);
     }
 }
